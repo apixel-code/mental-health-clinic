@@ -83,7 +83,7 @@ async def get_blog(blog_id: str):
         raise HTTPException(status_code=404, detail="Blog post not found")
     return blog
 
-@api_router.post("/blogs", response_model=BlogPost)
+@api_router.post("/blogs", response_model=BlogPost, status_code=201)
 async def create_blog(data: BlogPostCreate):
     blog = BlogPost(**data.model_dump())
     doc = blog.model_dump()

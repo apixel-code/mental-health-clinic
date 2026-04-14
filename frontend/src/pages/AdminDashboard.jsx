@@ -18,6 +18,7 @@ import { Input } from "../components/ui/input";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "../components/ui/dialog";
@@ -323,6 +324,9 @@ export default function AdminDashboard() {
             <DialogTitle className="font-heading text-xl">
               {editingBlog ? "পোস্ট সম্পাদনা" : "নতুন পোস্ট তৈরি"}
             </DialogTitle>
+            <DialogDescription className="text-sm text-[#94A3B8]">
+              {editingBlog ? "বিদ্যমান পোস্টে পরিবর্তন করুন" : "একটি নতুন ব্লগ পোস্ট তৈরি করুন"}
+            </DialogDescription>
           </DialogHeader>
           <div className="space-y-5 mt-4">
             <div>
