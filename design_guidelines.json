@@ -1,0 +1,153 @@
+{
+  "project_name": "Premium Psychiatrist Portfolio & Blog",
+  "theme": "light",
+  "archetype": "1 (Organic & Earthy)",
+  "design_philosophy": {
+    "core_principles": [
+      "Empathy First: The design must feel safe, warm, and non-judgmental. No clinical or hospital-like sterile aesthetics.",
+      "High Contrast & Legibility: Bengali typography must be large, breathable, and highly legible.",
+      "Generous Spacing: Use 2-3x more padding than standard websites to create a feeling of 'breathing room' and reduced cognitive load.",
+      "Organic Accents: Soft corners, warm hues, and gentle transitions. No aggressive borders or stark lines."
+    ]
+  },
+  "typography": {
+    "primary_font_import": "@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Noto+Serif+Bengali:wght@400;600;700;800&display=swap');",
+    "headings": {
+      "font_family": "'Noto Serif Bengali', serif",
+      "strategy": "Premium, authoritative yet compassionate. Use Noto Serif for all H1, H2, and H3 elements to establish a trustworthy, high-end medical feel.",
+      "weights": ["600", "700", "800"]
+    },
+    "body": {
+      "font_family": "'Hind Siliguri', sans-serif",
+      "strategy": "Clean, modern, and highly readable on mobile devices. Essential for long-form blog reading.",
+      "weights": ["300", "400", "500"]
+    },
+    "scale": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-tight",
+      "h2": "text-3xl sm:text-4xl tracking-tight leading-[1.2]",
+      "h3": "text-xl sm:text-2xl leading-snug",
+      "body": "text-base sm:text-lg leading-relaxed text-slate-700",
+      "small": "text-sm tracking-wide text-slate-500"
+    }
+  },
+  "colors": {
+    "background": {
+      "primary": "#FDFBF7",
+      "secondary": "#F3F4F1",
+      "tertiary": "#EBECE8"
+    },
+    "text": {
+      "primary": "#0F172A",
+      "secondary": "#475569",
+      "muted": "#94A3B8"
+    },
+    "brand": {
+      "primary": "#2C4B3B",
+      "primary_hover": "#1E3529",
+      "accent": "#D98A6C",
+      "accent_hover": "#C27557"
+    },
+    "surfaces": {
+      "card": "#FFFFFF",
+      "card_dark": "#1A2E24",
+      "border": "#E2E8F0"
+    }
+  },
+  "spacing_and_layout": {
+    "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+    "section_padding": "py-20 md:py-32",
+    "grid_gap": "gap-8 md:gap-12",
+    "border_radius": "rounded-2xl md:rounded-3xl",
+    "shadows": {
+      "soft": "shadow-[0_8px_30px_rgb(0,0,0,0.04)]",
+      "medium": "shadow-[0_20px_40px_rgb(0,0,0,0.08)]"
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-[#2C4B3B] text-white hover:bg-[#1E3529] transition-colors duration-300 rounded-full px-8 py-4 font-medium text-lg shadow-lg hover:-translate-y-1",
+      "secondary": "bg-white text-[#2C4B3B] border border-[#2C4B3B]/20 hover:bg-[#F3F4F1] transition-colors duration-300 rounded-full px-8 py-4 font-medium text-lg",
+      "ghost": "text-[#2C4B3B] hover:text-[#1E3529] hover:bg-[#2C4B3B]/5 px-4 py-2 rounded-lg transition-colors"
+    },
+    "cards": {
+      "default": "bg-white rounded-3xl p-8 sm:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100",
+      "dark": "bg-[#1A2E24] text-white rounded-3xl p-8 sm:p-10 shadow-xl"
+    },
+    "inputs": {
+      "default": "w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#2C4B3B]/20 focus:border-[#2C4B3B] transition-all"
+    }
+  },
+  "media": {
+    "hero_background": {
+      "url": "https://images.unsplash.com/photo-1772983937965-6439ed24e343?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODF8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMGNhbG0lMjB3YXZlfGVufDB8fHx8MTc3NjE5NjA4Mnww&ixlib=rb-4.1.0&q=85",
+      "alt": "Calm ocean abstract",
+      "instructions": "Use with a heavy warm overlay (bg-[#FDFBF7]/90) so it feels like a subtle texture rather than a distracting image. Text must be highly legible."
+    },
+    "doctor_portrait": {
+      "url": "https://images.unsplash.com/photo-1612531385446-f7e6d131e1d0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzV8MHwxfHNlYXJjaHwxfHxlbXBhdGhldGljJTIwZG9jdG9yJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzc2MTk2MDcxfDA&ixlib=rb-4.1.0&q=85",
+      "alt": "Empathetic doctor",
+      "instructions": "Crop thoughtfully, rounded-3xl, place in the Authority/Empathy section with a soft shadow."
+    },
+    "blog_thumbnails": [
+      "https://images.unsplash.com/photo-1541044824061-afc156516935?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwxfHxqb3VybmFsaW5nJTIwbWVudGFsJTIwaGVhbHRofGVufDB8fHx8MTc3NjE5NjA3MXww&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1588082012988-c3ac6638660d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAxODF8MHwxfHNlYXJjaHwyfHxjYWxtJTIwbmF0dXJlJTIwbWluZGZ1bG5lc3N8ZW58MHx8fHwxNzc2MTk2MDcxfDA&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1728706613055-16fd468ff286?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAxODF8MHwxfHNlYXJjaHwzfHxjYWxtJTIwbmF0dXJlJTIwbWluZGZ1bG5lc3N8ZW58MHx8fHwxNzc2MTk2MDcxfDA&ixlib=rb-4.1.0&q=85"
+    ]
+  },
+  "content_strategy": {
+    "hero": {
+      "headline": "আপনার ভেতরের নীরব লড়াইটা আমরা বুঝি।",
+      "subheadline": "মানসিক প্রশান্তি কোনো বিলাসিতা নয়, এটি আপনার অধিকার। আসুন, একসাথে নতুন করে বাঁচার পথ খুঁজি।",
+      "cta": "অ্যাপয়েন্টমেন্ট বুক করুন"
+    },
+    "transformation": {
+      "title": "পরিবর্তন সম্ভব",
+      "state_before": {
+        "title": "যেভাবে আছেন",
+        "points": ["অতিরিক্ত দুশ্চিন্তা", "অনিদ্রা ও ক্লান্তি", "একা লাগা"]
+      },
+      "state_after": {
+        "title": "যেভাবে বাঁচতে পারেন",
+        "points": ["মানসিক প্রশান্তি", "সুস্থ ঘুম", "জীবনের প্রতি নতুন আশা"]
+      }
+    },
+    "authority": {
+      "title": "আপনার কথা শোনার জন্য আমি আছি",
+      "body": "দীর্ঘদিনের অভিজ্ঞতায় আমি দেখেছি, একটু সঠিক দিকনির্দেশনা এবং সহানুভূতি কীভাবে একটি জীবনকে বদলে দিতে পারে। আপনার অনুভূতিগুলো এখানে সম্পূর্ণ সুরক্ষিত।"
+    }
+  },
+  "page_specific_rules": {
+    "landing_page": {
+      "structure": [
+        "Header Navigation (Sticky with backdrop-blur)",
+        "Hero Section (Large typography, emotional copy, clear CTA)",
+        "Transformation Section (Before/After split layout cards)",
+        "Authority Section (Doctor portrait + Empathy text)",
+        "Services/Treatments (Bento Grid layout)",
+        "Testimonials (Anonymous, soft cards)",
+        "Footer (Contact info, WhatsApp link, copyright)"
+      ]
+    },
+    "blog_list": {
+      "layout": "Grid of articles with large featured images, title, short excerpt, and read more link. Clean and minimal."
+    },
+    "blog_single": {
+      "layout": "Narrow reading column (max-w-3xl) centered. Large headline, meta info (date), featured image, and rich text body. Generous line-height for readability."
+    },
+    "admin_auth": {
+      "layout": "Centered clean card. Minimalist password-only input field. No email field required. 'Enter Admin Area' button."
+    },
+    "admin_dashboard": {
+      "layout": "Simple top navigation bar. Clean data table for Blog CRUD operations. Focus on functionality. Use Shadcn Table, Button, Input, Dialog."
+    }
+  },
+  "technical_instructions_for_main_agent": {
+    "frameworks": ["React", "FastAPI", "TailwindCSS", "Shadcn UI"],
+    "icons": "Use 'lucide-react' for all iconography.",
+    "testing": "All interactive elements MUST include a 'data-testid' attribute (e.g., data-testid='book-appointment-btn').",
+    "whatsapp_integration": "The CTA 'Book Appointment' must redirect to a WhatsApp link (e.g., href='https://wa.me/1234567890?text=I%20would%20like%20to%20book%20an%20appointment').",
+    "animations": "Use framer-motion for gentle fade-ups on scroll. No aggressive or bouncy animations. Keep it highly subtle.",
+    "components": "Do NOT use HTML native datepickers or selects. Use Shadcn components. Do not rely heavily on standard Shadcn Card everywhere; use raw divs with custom generous padding for marketing sections.",
+    "api_integration": "Ensure FastAPI backend handles blog CRUD and admin authentication securely."
+  }
+}
