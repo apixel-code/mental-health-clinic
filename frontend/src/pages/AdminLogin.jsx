@@ -19,7 +19,7 @@ export default function AdminLogin() {
       sessionStorage.setItem("admin_auth", "true");
       navigate("/admin/dashboard");
     } else {
-      setError("ভুল পাসওয়ার্ড। আবার চেষ্টা করুন।");
+      setError("ভুল পাসওয়ার্ড। আবার চেষ্টা করুন। ");
     }
   };
 
