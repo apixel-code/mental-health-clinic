@@ -19,13 +19,13 @@ export default function AdminLogin() {
       sessionStorage.setItem("admin_auth", "true");
       navigate("/admin/dashboard");
     } else {
-      setError("ভুল পাসওয়ার্ড। আবার চেষ্টা করুন। ");
+      setError("ভুল পাসওয়ার্ড। আবার চেষ্টা করুন।");
     }
   };
 
   return (
     <main
-      data-testid="admin-login-page"
+      data-testid="admin-login-page "
       className="min-h-screen bg-[#FDFBF7] flex items-center justify-center px-4"
     >
       <motion.div
