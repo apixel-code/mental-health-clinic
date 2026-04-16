@@ -2,6 +2,7 @@ from fastapi import FastAPI, APIRouter, HTTPException
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
+from pymongo.errors import PyMongoError
 import os
 import logging
 from pathlib import Path
@@ -9,12 +10,17 @@ from pydantic import BaseModel, Field, ConfigDict
 from typing import List, Optional
 import uuid
 from datetime import datetime, timezone
+import certifi
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
 mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
+client = AsyncIOMotorClient(
+    mongo_url,
+    tlsCAFile=certifi.where(),
+    serverSelectionTimeoutMS=5000,
+)
 db = client[os.environ['DB_NAME']]
 
 app = FastAPI()
@@ -73,12 +79,21 @@ async def verify_admin(data: AdminVerify):
 @api_router.get("/blogs", response_model=List[BlogPost])
 async def get_blogs(published_only: bool = False):
     query = {"published": True} if published_only else {}
-    blogs = await db.blogs.find(query, {"_id": 0}).sort("created_at", -1).to_list(100)
-    return blogs
+    try:
+        blogs = await db.blogs.find(query, {"_id": 0}).sort("created_at", -1).to_list(100)
+        return blogs
+    except PyMongoError as exc:
+        logger.exception("Database error while fetching blogs")
+        raise HTTPException(status_code=503, detail="Database unavailable") from exc
 
 @api_router.get("/blogs/{blog_id}", response_model=BlogPost)
 async def get_blog(blog_id: str):
-    blog = await db.blogs.find_one({"id": blog_id}, {"_id": 0})
+    try:
+        blog = await db.blogs.find_one({"id": blog_id}, {"_id": 0})
+    except PyMongoError as exc:
+        logger.exception("Database error while fetching blog %s", blog_id)
+        raise HTTPException(status_code=503, detail="Database unavailable") from exc
+
     if not blog:
         raise HTTPException(status_code=404, detail="Blog post not found")
     return blog
@@ -87,7 +102,11 @@ async def get_blog(blog_id: str):
 async def create_blog(data: BlogPostCreate):
     blog = BlogPost(**data.model_dump())
     doc = blog.model_dump()
-    await db.blogs.insert_one(doc)
+    try:
+        await db.blogs.insert_one(doc)
+    except PyMongoError as exc:
+        logger.exception("Database error while creating blog")
+        raise HTTPException(status_code=503, detail="Database unavailable") from exc
     return blog
 
 @api_router.put("/blogs/{blog_id}", response_model=BlogPost)
@@ -96,15 +115,30 @@ async def update_blog(blog_id: str, data: BlogPostUpdate):
     if not update_data:
         raise HTTPException(status_code=400, detail="No fields to update")
     update_data["updated_at"] = datetime.now(timezone.utc).isoformat()
-    result = await db.blogs.update_one({"id": blog_id}, {"$set": update_data})
+    try:
+        result = await db.blogs.update_one({"id": blog_id}, {"$set": update_data})
+    except PyMongoError as exc:
+        logger.exception("Database error while updating blog %s", blog_id)
+        raise HTTPException(status_code=503, detail="Database unavailable") from exc
+
     if result.matched_count == 0:
         raise HTTPException(status_code=404, detail="Blog post not found")
-    blog = await db.blogs.find_one({"id": blog_id}, {"_id": 0})
+    try:
+        blog = await db.blogs.find_one({"id": blog_id}, {"_id": 0})
+    except PyMongoError as exc:
+        logger.exception("Database error while fetching updated blog %s", blog_id)
+        raise HTTPException(status_code=503, detail="Database unavailable") from exc
+
     return blog
 
 @api_router.delete("/blogs/{blog_id}")
 async def delete_blog(blog_id: str):
-    result = await db.blogs.delete_one({"id": blog_id})
+    try:
+        result = await db.blogs.delete_one({"id": blog_id})
+    except PyMongoError as exc:
+        logger.exception("Database error while deleting blog %s", blog_id)
+        raise HTTPException(status_code=503, detail="Database unavailable") from exc
+
     if result.deleted_count == 0:
         raise HTTPException(status_code=404, detail="Blog post not found")
     return {"message": "Blog post deleted", "id": blog_id}

@@ -1,20 +1,20 @@
-import { useState, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import {
-  Plus,
-  Pencil,
-  Trash2,
-  LogOut,
   BookOpen,
   CalendarDays,
-  FileText,
-  X,
-  Save,
   Eye,
   EyeOff,
+  FileText,
+  LogOut,
+  Pencil,
+  Plus,
+  Save,
+  Trash2,
+  X,
 } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/button";
-import { Input } from "../components/ui/input";
 import {
   Dialog,
   DialogContent,
@@ -22,6 +22,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "../components/ui/dialog";
+import { Input } from "../components/ui/input";
 import {
   Table,
   TableBody,
@@ -30,7 +31,6 @@ import {
   TableHeader,
   TableRow,
 } from "../components/ui/table";
-import axios from "axios";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
@@ -38,6 +38,7 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("blog");
   const [blogs, setBlogs] = useState([]);
+  const [apiError, setApiError] = useState("");
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingBlog, setEditingBlog] = useState(null);
@@ -61,8 +62,14 @@ export default function AdminDashboard() {
     try {
       const res = await axios.get(`${API}/blogs`);
       setBlogs(res.data);
+      setApiError("");
     } catch (err) {
       console.error("Error fetching blogs:", err);
+      const detail = err?.response?.data?.detail;
+      setApiError(
+        detail ||
+          "ব্লগ লোড করা যায়নি। ব্যাকএন্ড সার্ভার চালু আছে কিনা যাচাই করুন।",
+      );
     } finally {
       setLoading(false);
     }
@@ -110,10 +117,16 @@ export default function AdminDashboard() {
       } else {
         await axios.post(`${API}/blogs`, formData);
       }
+      setApiError("");
       setDialogOpen(false);
       fetchBlogs();
     } catch (err) {
       console.error("Error saving blog:", err);
+      const detail = err?.response?.data?.detail;
+      setApiError(
+        detail ||
+          "পোস্ট সেভ করা যায়নি। ব্যাকএন্ড সার্ভার ও ডেটাবেস কানেকশন যাচাই করুন।",
+      );
     }
   };
 
@@ -121,9 +134,12 @@ export default function AdminDashboard() {
     if (window.confirm("এই পোস্টটি মুছে ফেলতে চান?")) {
       try {
         await axios.delete(`${API}/blogs/${blogId}`);
+        setApiError("");
         fetchBlogs();
       } catch (err) {
         console.error("Error deleting blog:", err);
+        const detail = err?.response?.data?.detail;
+        setApiError(detail || "পোস্ট ডিলিট করা যায়নি।");
       }
     }
   };
@@ -199,6 +215,15 @@ export default function AdminDashboard() {
                 নতুন পোস্ট
               </Button>
             </div>
+
+            {apiError && (
+              <div
+                className="mx-6 mt-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+                data-testid="admin-blog-api-error"
+              >
+                {apiError}
+              </div>
+            )}
 
             {loading ? (
               <div className="p-10 text-center text-[#94A3B8]">লোড হচ্ছে...</div>
