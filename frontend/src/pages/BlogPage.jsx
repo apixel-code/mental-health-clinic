@@ -14,7 +14,7 @@ export default function BlogPage() {
     const fetchBlogs = async () => {
       try {
         const res = await axios.get(`${API}/blogs?published_only=true`);
-        setBlogs(res.data);
+        setBlogs(res.data );
       } catch (err) {
         console.error("Error fetching blogs:", err);
       } finally {
